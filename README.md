@@ -541,8 +541,26 @@ Vue.js-practice
 ```
 
 ### EventBus - 父層定義event handler傳入各個子層
+> Vue2與Vue3 import的lib不同
 
+* Vue2是使用vue lib
 
+```javascript
+import Vue from "vue"
+const EventBus = new Vue()
+export default EventBus
+```
+
+* Vue3是使用mitt
+
+```javascript
+import mitt from 'mitt'
+const EventBus = {}
+const emitter = new mitt()
+EventBus.$on = emitter.on
+EventBus.$emit = emitter.emit
+export default EventBus
+```
 
 
 
