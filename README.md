@@ -2,6 +2,8 @@
 
 vue.js練習
 
+參考：[2020it邦鐵人賽-30天手把手的Vue.js教學](https://ithelp.ithome.com.tw/articles/10248514) 
+
 [TOC]
 
 
@@ -562,5 +564,126 @@ EventBus.$emit = emitter.emit
 export default EventBus
 ```
 
+### store 建立一object並使用裡面的方法對值做變更
 
+* 新增store.js
+
+```javascript
+export const store = {
+  state: {
+    numbers: [1, 3, 5, 7, 9]
+  },
+  addNumber(value) {
+    this.state.numbers.push(parseInt(value))
+  }
+}
+```
+
+* 於DisplayNumber.vue、AddNumbers.vue 加上參數及方法
+
+```vue
+<!-- DisplayNumber.vue -->
+<script>
+import {store} from "../store.js"
+export default {
+  data() {
+    return {
+      storeState: store.state.numbers
+    }
+  }
+}
+</script>
+<!-- AddNumbers.vue  -->
+<script>
+import {store} from "../store.js"
+export default {
+  data() {
+    return {
+      number: 0;
+    }
+  },
+  methods: {
+    addNumber() {
+      store.addNumber(this.number)
+    }
+  }
+}
+</script>
+```
+
+### Vuex 可取得global state
+
+See [vuex](https://vuex.vuejs.org/zh/). [it邦鐵人賽](https://ithelp.ithome.com.tw/articles/10248514).
+
+<img src="https://vuex.vuejs.org/vuex.png">
+
+> * 一定要透過commit 執行mutations裡的function才能變動state裡的數值，可方便我們追蹤使用哪個function去變更值
+>* 可於component中使用mapState令computed、state可以mapping
+> * 
+
+* 建立要使用的global物件，在src/store/index.js
+
+```javascript
+import { createStore } from 'vuex'
+
+export default createStore({
+  state: {
+    isLoading: false,
+    clickedTimes: 0
+  },
+  mutations: {
+    Loaded(state) {
+      state.isLoading = !state.isLoading
+    },
+    AddTimes(state) {
+      state.clickedTimes++
+    }
+  },
+  actions: {
+  },
+  modules: {
+  }
+})
+
+```
+
+* 在component使用
+
+```vue
+<template>
+    <div>
+        <h1>This is Store Test</h1>
+        <p>Loading: {{ ifLoading }}</p>
+        <button @click="reverseLoad();addTimes()">Reverse</button>
+        <p>Button Clicked Times: {{clickedTimes}}</p>
+    </div>
+</template>
+<script>
+  import { mapState } from "vuex";
+export default {
+    methods: {
+        reverseLoad() {
+            this.$store.commit("Loaded")
+        },
+        addTimes() {
+            this.$store.commit("AddTimes")
+        }
+    },
+    computed: mapState({
+        ifLoading: 'isLoading', 
+        clickedTimes: 'clickedTimes'
+    })
+  // computed可以另外寫成
+  /*
+    computed: {
+      message: () => 'hello',
+      ...mapState({
+      	ifLoading: 'isLoading', 
+        clickedTimes: 'clickedTimes'
+      })
+    }
+  */
+}
+</script>
+```
 
