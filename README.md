@@ -618,8 +618,12 @@ See [vuex](https://vuex.vuejs.org/zh/). [it邦鐵人賽](https://ithelp.ithome.c
 <img src="https://vuex.vuejs.org/vuex.png">
 
 > * 一定要透過commit 執行mutations裡的function才能變動state裡的數值，可方便我們追蹤使用哪個function去變更值
->* 可於component中使用mapState令computed、state可以mapping
-> * 
+>
+> * 可於component中使用mapState令computed、state可以mapping
+>
+> * ```bash
+>   npm install vuex --save
+>   ```
 
 * 建立要使用的global物件，在src/store/index.js
 
@@ -659,7 +663,7 @@ export default createStore({
     </div>
 </template>
 <script>
-  import { mapState } from "vuex";
+import { mapState } from "vuex";
 export default {
     methods: {
         reverseLoad() {
