@@ -2,11 +2,25 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
-    <router-link to="/numberPage">Number</router-link>
+    <router-link to="/numberPage">Number</router-link> |
+    <router-link :to="{ name: 'Home' }">Home2</router-link> |
+    <router-link
+      :to="{
+        name: 'User',
+        params: {
+          id: 1,
+        },
+      }"
+      >User1</router-link
+    >
+    |
+    <router-link to="/weather">Weather</router-link>
   </div>
-  <router-view/>
+  <router-view />
 </template>
-
+<script>
+export default {};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

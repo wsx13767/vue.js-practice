@@ -527,9 +527,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 </script>
 ```
 
-## Vue cli
+### Vue cli
 
-### 資料目錄
+#### 資料目錄
 
 ```bash
 Vue.js-practice
@@ -542,7 +542,7 @@ Vue.js-practice
 |      | App.vue        # 專案的進入點
 ```
 
-### EventBus - 父層定義event handler傳入各個子層
+#### EventBus - 父層定義event handler傳入各個子層
 > Vue2與Vue3 import的lib不同
 
 * Vue2是使用vue lib
@@ -564,7 +564,7 @@ EventBus.$emit = emitter.emit
 export default EventBus
 ```
 
-### store 建立一object並使用裡面的方法對值做變更
+#### store 建立一object並使用裡面的方法對值做變更
 
 * 新增store.js
 
@@ -611,7 +611,7 @@ export default {
 </script>
 ```
 
-### Vuex 可取得global state
+#### Vuex 可取得global state
 
 See [vuex](https://vuex.vuejs.org/zh/). [it邦鐵人賽](https://ithelp.ithome.com.tw/articles/10248514).
 
@@ -687,6 +687,89 @@ export default {
       })
     }
   */
+}
+</script>
+```
+
+#### router
+
+> ```bash
+> vue add router 
+> ```
+* 多出router、views目錄，可在index.js裡加上路徑，views下的檔案為切換後顯示的畫面
+```bash
+.
+├── README.md
+├── babel.config.js
+├── node_modules
+├── package-lock.json
+├── package.json
+├── public
+│   ├── favicon.ico
+│   └── index.html
+└── src
+    ├── App.vue
+    ├── EventBus.js
+    ├── assets
+    ├── components
+    ├── main.js
+    ├── router
+    │   └── index.js
+    ├── store
+    ├── store.js
+    └── views
+        ├── About.vue
+        └── Home.vue
+```
+
+* Index.js
+
+```javascript
+import { createRouter, createWebHistory } from 'vue-router'
+import Home from '../views/Home.vue'
+
+const routes = [
+  {
+    path: '/',     // <router-link to="/">Home</router-link>
+    name: 'Home',  // <router-link :to="{name: Home}">Home</router-link>
+    alias: ['/home', '/homePage'], //別名 /home /homePage皆會顯示Ｈome頁面
+    component: Home
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/user/:id',
+    name: 'User',
+    component: () => import(/**/'../views/User.vue')
+  }
+]
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
+
+export default router
+
+```
+
+* User.vue
+
+```vue
+<template>
+    <div>
+        <p>User {{ $route.params.id }}</p> <!-- url/user/:id 可取得:id的值-->
+        <p>{{$route.query}}</p><!-- 可取得url?後的參數a=1&b=2 -->
+    </div>
+</template>
+<script>
+export default {
+    created() {
+        
+    }
 }
 </script>
 ```

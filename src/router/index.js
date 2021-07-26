@@ -1,11 +1,13 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    alias: ['/home', '/homePage'],
+    component: Home,
+    // redirect: '/about'
   },
   {
     path: '/about',
@@ -19,11 +21,20 @@ const routes = [
     path: '/numberPage',
     name: 'NumberPage',
     component: () => import(/*  */ '../views/NumberPage.vue') 
+  },
+  {
+    path: '/user/:id',
+    name: 'User',
+    component: () => import(/**/'../views/User.vue')
+  },{
+    path: '/weather',
+    name: 'Weather',
+    component: () => import(/**/'../views/Weather.vue')
   }
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes
 })
 
