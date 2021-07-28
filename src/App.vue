@@ -1,5 +1,8 @@
 <template>
   <div id="nav">
+    <nav-bar />
+  </div><!--
+  <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link to="/numberPage">Number</router-link> |
@@ -16,10 +19,14 @@
     |
     <router-link to="/weather">Weather</router-link>
   </div>
+  -->
   <router-view />
 </template>
 <script>
-export default {};
+import NavBar from "./components/navbar/NavBar.vue";
+export default {
+  components: {NavBar}
+};
 </script>
 <style>
 #app {

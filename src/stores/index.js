@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
+import navUrl from './modules/navUrl'
 
-export default createStore({
+const store = createStore({
   state: {
     isLoading: false,
     clickedTimes: 0,
@@ -21,7 +22,8 @@ export default createStore({
     doneTodos: state => state.todos.filter(todo => todo.done)
   },
   actions: {
-  },
-  modules: {
   }
 })
+store.registerModule('navUrl', navUrl)
+
+export default store

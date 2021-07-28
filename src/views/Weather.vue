@@ -1,6 +1,6 @@
 <template>
   <div id="weatherBlock" :class="temperature > 20 ? 'warm' : ''">
-    <div class="container">
+    <div class="weatherContainer">
       <div class="search-box">
         <input type="text" placeholder="Search..." class="search-bar" v-model="query" @keyup.enter="searchWeacher"/>
       </div>
@@ -68,7 +68,7 @@ export default {
 #weatherBlock.warm {
   background-image: url("../assets/warm-bg.jpg");
 }
-.container {
+.weatherContainer {
   height: 100vh;
   padding: 25px;
   background-image: linear-gradient(
