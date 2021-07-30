@@ -2,7 +2,13 @@
   <div id="weatherBlock" :class="temperature > 20 ? 'warm' : ''">
     <div class="weatherContainer">
       <div class="search-box">
-        <input type="text" placeholder="Search..." class="search-bar" v-model="query" @keyup.enter="searchWeacher"/>
+        <input
+          type="text"
+          placeholder="Search..."
+          class="search-bar"
+          v-model="query"
+          @keyup.enter="searchWeacher"
+        />
       </div>
       <div class="weather-wrapper">
         <div class="location-box">
@@ -18,17 +24,17 @@
   </div>
 </template>
 <script>
-import dayjs from 'dayjs'
-import advancedFormat from 'dayjs/plugin/advancedFormat'
-dayjs.extend(advancedFormat)
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+dayjs.extend(advancedFormat);
 export default {
   data() {
     return {
       api_key: process.env.VUE_APP_WEATHER_KEY,
       base_url: "https://api.openweathermap.org/data/2.5/weather",
       query: "Taichung",
-      temperature: '',
-      weatherMain: '',
+      temperature: "",
+      weatherMain: "",
       weather: {},
       data: "",
     };
@@ -36,11 +42,13 @@ export default {
   methods: {
     async searchWeacher() {
       let resp = await this.axios.get(
-        `${this.base_url}?q=${this.query}&units=metric&APPID=${this.api_key}`
+        `${this.base_url}?q=${this.query}&units=metric&lang=zh_tw&APPID=${this.api_key}`
       );
+
+      console.log(resp.data);
       this.weather = resp.data;
-      this.temperature = Math.round(resp.data.main.temp)
-      this.weatherMain = resp.data.weather[0].main
+      this.temperature = Math.round(resp.data.main.temp);
+      this.weatherMain = resp.data.weather[0].main;
     },
   },
   created() {
@@ -48,9 +56,9 @@ export default {
   },
   computed: {
     currentDate() {
-      return dayjs().format(`MMMM Do YYYY`)
+      return dayjs().format(`MMMM Do YYYY`);
     },
-},
+  },
 };
 </script>
 <style scoped>

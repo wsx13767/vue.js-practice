@@ -7,7 +7,7 @@
 export default {
     props: {
         navLinkItem: {
-            type: String,
+            type: Object,
             required: true
         }
     }
