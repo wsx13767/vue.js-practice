@@ -23,14 +23,16 @@ const routes = [
     component: () => import(/*  */ '../views/NumberPage.vue') 
   },
   {
-    path: '/user/:id',
+    path: '/user/:id?', // path可使用regex，加上?表示id為非必要參數
     name: 'User',
+    props: true,
     component: () => import(/**/'../views/User.vue')
-  },{
+  }, {
     path: '/weather',
     name: 'Weather',
     component: () => import(/**/'../views/Weather.vue')
   }
+
 ]
 
 const router = createRouter({

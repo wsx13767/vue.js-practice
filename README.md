@@ -741,8 +741,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/user/:id',
+    path: '/user/:id?', //path可使用regex，加上?表示id為非必要參數
     name: 'User',
+    props: true, // 開啟後，可將params裡的參數與props的參數做mapping
     component: () => import(/**/'../views/User.vue')
   }
 ]
@@ -761,16 +762,55 @@ export default router
 ```vue
 <template>
     <div>
-        <p>User {{ $route.params.id }}</p> <!-- url/user/:id 可取得:id的值-->
-        <p>{{$route.query}}</p><!-- 可取得url?後的參數a=1&b=2 -->
+        <p>User Id: {{ $route.params.id }}</p> <!-- url/user/:id 可取得:id的值-->
+        <p>User Name: {{$route.query.userName}}</p><!-- 可取得url?後的參數a=1&b=2 -->
+        <p>Message: {{message}}</p><!-- router的path 開啟props後，可使用props接收$route.params的參數 -->
     </div>
 </template>
 <script>
 export default {
+    props: ['message'],
     created() {
         
     }
 }
 </script>
+```
+
+* main.js
+
+```javascript
+import { createApp } from 'vue'
+import App from './App.vue'
+import store from './stores'
+import router from './router'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+createApp(App).use(router).use(store).use(VueAxios, axios).mount('#app')
+```
+
+* About.vue
+
+```vue
+...
+<script>
+  methods: {
+    gotoUser() {
+      // 使用$router.push可以傳遞params或query
+      this.$router.push({
+        name: 'User',
+        params: {
+          id: this.userId,
+          message: this.message
+        },
+        query: {
+          userName: this.userName
+        }
+      });
+    }
+  }
+</script>
+...
 ```
 
