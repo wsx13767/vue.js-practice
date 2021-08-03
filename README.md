@@ -629,6 +629,7 @@ See [vuex](https://vuex.vuejs.org/zh/). [it邦鐵人賽](https://ithelp.ithome.c
 
 ```javascript
 import { createStore } from 'vuex'
+import navUrl from './modules/navUrl'
 
 export default createStore({
   state: {
@@ -645,7 +646,9 @@ export default createStore({
   },
   actions: {
   },
+  // 可以import其他vuex
   modules: {
+    navUrl: navUrl
   }
 })
 
@@ -690,6 +693,8 @@ export default {
 }
 </script>
 ```
+
+* `...`為ES6的語法可使用在物件的擴充等等，See [itread01](https://www.itread01.com/content/1547233367.html). 
 
 #### router
 
