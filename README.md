@@ -497,6 +497,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### slot使用
 
+* slot範例
+
 ```vue
 <template>
   <div>
@@ -525,6 +527,44 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     `
   })
 </script>
+```
+
+* slot scope
+
+```vue
+...
+<children-div :todos="todos">
+  <template slot-scope="data">
+    {{data.item}}
+  </template>
+</children-div>
+<script>
+	export default {
+    data() {
+      return {
+        todos: {
+          ...
+        }
+      }
+    }
+  }
+</script>
+...
+
+<!-- children-div -->
+...
+
+<template>
+  <div>
+    <slot :item="todos"></slot>
+  </div>
+</template>
+<script>
+	export default {
+    props['todos']
+  }
+</script>
+...
 ```
 
 ### Vue cli
